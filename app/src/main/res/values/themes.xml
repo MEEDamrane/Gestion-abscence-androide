@@ -3,7 +3,10 @@
     <style name="Base.Theme.QrAbsence" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+        <item name="android:fontFamily">@font/ar_one_sans_semibold</item>
     </style>
 
     <style name="Theme.QrAbsence" parent="Base.Theme.QrAbsence" />
+
 </resources>
