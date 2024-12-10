@@ -22,8 +22,19 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        Intent intent = new Intent(this,LoginActivity.class);
-        startActivity(intent);
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+
+        MainApplication context = (MainApplication) this.getApplicationContext();
+
+        if(!context.is_signedIn){
+            Intent intent = new Intent(this,LoginActivity.class);
+            startActivity(intent);
+        }
+
 
     }
 }

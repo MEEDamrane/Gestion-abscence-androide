@@ -1,6 +1,11 @@
 package com.example.qrabsence;
 
+import static androidx.constraintlayout.widget.Constraints.TAG;
+
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,5 +25,20 @@ public class LoginActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+
+        EditText emailOrCneInput = findViewById(R.id.EmailAddressInput);
+        EditText passwordInput = findViewById(R.id.PasswordInput);
+    }
+
+    public void handleConnection(View button){
+        EditText emailOrCneInput = findViewById(R.id.EmailAddressInput);
+        EditText passwordInput = findViewById(R.id.PasswordInput);
+
+
     }
 }
