@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CustomInput">
+        <!-- Padding -->
+        <item name="android:paddingStart">16dp</item>   <!-- paddingHorizontal -->
+        <item name="android:paddingEnd">16dp</item>     <!-- paddingHorizontal -->
+        <item name="android:paddingTop">12dp</item>     <!-- paddingVertical -->
+        <item name="android:paddingBottom">12dp</item>  <!-- paddingVertical -->
+
+        <!-- Font -->
+        <item name="android:fontFamily">@font/ar_one_sans_semibold</item>
+        <item name="android:textColor">@color/lightest</item>
+        <!-- Max lines -->
+        <item name="android:maxLines">1</item>
+
+        <!-- Background -->
+        <item name="android:background">@drawable/custom_input</item>
+    </style>
+
+    <style name="CustomInputLabel">
+        <item name="android:fontFamily">@font/inter_bold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+
+    <style name="customButton">
+        <item name="android:background">@drawable/customgreenbutton</item>
+    </style>
+</resources>

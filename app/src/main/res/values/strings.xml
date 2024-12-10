@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Qr Absence</string>
+    <string name="welcoming">Bienvenue!</string>
+    <string name="loginPageEmailLabel">Adresse email ou CNE</string>
+    <string name="loginPagePasswordLabel">Mot de passe</string>
+    <string name="forgetPasswordButtonLabel">Mot de Passe oublier?</string>
+    <string name="signInButtonText">Connexion</string>
 </resources>
