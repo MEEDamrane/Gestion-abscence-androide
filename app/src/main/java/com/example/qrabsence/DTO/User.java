@@ -5,7 +5,7 @@ public class User {
     private String nom,prenom;
     private String email;
     private String CNE;
-    private boolean is_enseignat;
+    private boolean is_enseignant;
 
     // Getter and Setter for id
     public Long getId() {
@@ -53,11 +53,23 @@ public class User {
     }
 
     // Getter and Setter for is_enseignat
-    public boolean isIs_enseignat() {
-        return is_enseignat;
+    public boolean getIs_enseignant() {
+        return is_enseignant;
     }
 
-    public void setIs_enseignat(boolean is_enseignat) {
-        this.is_enseignat = is_enseignat;
+    public void setIs_enseignant(boolean is_enseignant) {
+        this.is_enseignant = is_enseignant;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+            "id=" + id +
+            ", nom='" + nom + '\'' +
+            ", prenom='" + prenom + '\'' +
+            ", email='" + email + '\'' +
+            ", CNE='" + CNE + '\'' +
+            ", is_enseignat=" + is_enseignant +
+            '}';
     }
 }

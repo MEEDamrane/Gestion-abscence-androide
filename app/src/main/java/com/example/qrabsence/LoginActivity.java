@@ -101,8 +101,8 @@ public class LoginActivity extends AppCompatActivity {
     private void handleSuccessfulConnection(String token){
         MainApplication context = (MainApplication) this.getApplicationContext();
 
-        context.token = token;
-        context.is_signedIn = true;
+
+        context.storeToken(token);
 
         Intent intent = new Intent(this, DashboardActivity.class);
         startActivity(intent);
