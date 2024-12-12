@@ -102,18 +102,44 @@
                 android:fontFamily="@font/ar_one_sans_semibold"/>
 
 
-            <Button
-                android:id="@+id/signinButton"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/signInButtonText"
+                android:layout_marginBottom="10dp">
 
-                android:onClick="handleConnection"
+                <!-- Button -->
+                <Button
+                    android:id="@+id/signinButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/signInButtonText"
+                    android:onClick="handleConnection"
+                    style="@style/customButton"
+                    app:backgroundTint="@null" />
 
-                style="@style/customButton"
-                app:backgroundTint="@null"
+                <!-- Loader -->
+                <ProgressBar
+                    android:id="@+id/signinLoader"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:indeterminateDrawable="@drawable/rolling_1x_1_0s_200px_200px"
+                    android:indeterminate="true"
+                    />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/errorText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                />
+                android:fontFamily="@font/ar_one_sans_semibold"
+                android:text="@string/loginFailedMessage"
+                android:textAlignment="center"
+                android:textColor="@color/error"
+                android:visibility="gone" />
         </LinearLayout>
 
     </LinearLayout>

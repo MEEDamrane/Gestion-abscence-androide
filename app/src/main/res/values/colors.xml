@@ -6,4 +6,5 @@
     <color name="green">#0C8346</color>
     <color name="lightGreen">#329F5B</color>
     <color name="lightest">#8F9098</color>
+    <color name="error">#ED3241</color>
 </resources>
