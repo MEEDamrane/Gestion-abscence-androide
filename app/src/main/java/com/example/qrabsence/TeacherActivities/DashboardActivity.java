@@ -2,8 +2,13 @@ package com.example.qrabsence.TeacherActivities;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +18,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -143,7 +149,7 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     //called after success in fetchUserInfo()
-    private void handleSuccessUserFetch(){
+    private void handleSuccessUserFetch() {
         View mainContent = findViewById(R.id.mainDashContent);
         View fullPageLoader = findViewById(R.id.fullScreenLoader);
         MainApplication context = (MainApplication) this.getApplicationContext();
@@ -153,7 +159,25 @@ public class DashboardActivity extends AppCompatActivity {
 
         TextView welcomingText = findViewById(R.id.welcomingTextField);
 
-        String welcome = "welcome "+context.user.getPrenom();
-        welcomingText.setText(welcome);
+        String firstPart = "Bonjour ";
+        String userName = context.user.getPrenom();
+        String fullText = firstPart + userName;
+
+        // Create a SpannableString for the full text
+        SpannableString spannableString = new SpannableString(fullText);
+
+        // Set color for the name part
+        int nameStartIndex = firstPart.length(); // Starting index for the name
+        int nameEndIndex = fullText.length(); // End index for the name
+
+        // Get the color from resources (use ContextCompat for compatibility)
+        int nameColor = ContextCompat.getColor(this, R.color.lightGreen); // Correct way to get color
+
+        // Apply color to the name
+        ForegroundColorSpan nameColorSpan = new ForegroundColorSpan(nameColor);
+        spannableString.setSpan(nameColorSpan, nameStartIndex, nameEndIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        // Set the spannable text to the TextView
+        welcomingText.setText(spannableString);
     }
 }
