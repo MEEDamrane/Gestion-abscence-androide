@@ -1,15 +1,17 @@
-package com.example.qrabsence;
+package com.example.qrabsence.TeacherActivities;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -18,6 +20,10 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.qrabsence.Api.APIClient;
 import com.example.qrabsence.Api.APIInterface;
 import com.example.qrabsence.DTO.User;
+import com.example.qrabsence.LoginActivity;
+import com.example.qrabsence.MainApplication;
+import com.example.qrabsence.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,15 +31,38 @@ import retrofit2.Response;
 
 public class DashboardActivity extends AppCompatActivity {
 
+    BottomNavigationView bottomNavigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_dashboard);
+        setContentView(R.layout.activity_teacher_dashboard);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+
+                if (itemId == R.id.nav_home) {
+                    Toast.makeText(DashboardActivity.this, "Home Selected", Toast.LENGTH_SHORT).show();
+                    return true;
+                } else if (itemId == R.id.nav_sessions) {
+                    Toast.makeText(DashboardActivity.this, "Sessions Selected", Toast.LENGTH_SHORT).show();
+                    return true;
+                } else if (itemId == R.id.nav_profile) {
+                    Toast.makeText(DashboardActivity.this, "Profile Selected", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+
+                return false;
+            }
         });
 
     }
@@ -108,7 +137,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     //directs to login activity
     private void goToLogin(){
-        Intent intent = new Intent(this,LoginActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
     }
