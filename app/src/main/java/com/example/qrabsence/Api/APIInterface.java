@@ -22,6 +22,9 @@ public interface APIInterface {
         @Query("remember_me") boolean rememberMe
     );
 
+    @POST("/api/auth/logout")
+    Call<Void> logout(@Header("Authorization") String authorization);
+
     @GET("/api/auth/user")
     Call<User> getUserInfo(@Header("Authorization") String authorization);
 

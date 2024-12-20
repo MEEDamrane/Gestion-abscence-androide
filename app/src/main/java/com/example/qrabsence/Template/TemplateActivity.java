@@ -1,40 +1,30 @@
-package com.example.qrabsence.TeacherActivities;
+package com.example.qrabsence.Template;
 
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.content.ContextCompat;
-
 import com.example.qrabsence.BaseActivity;
 import com.example.qrabsence.MainApplication;
 import com.example.qrabsence.R;
-import com.example.qrabsence.Template.DashboardUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-
-public class DashboardActivity extends BaseActivity {
+public class TemplateActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_teacher_dashboard);
+        setContentView(R.layout.activity_template);
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         View mainContent = findViewById(R.id.mainDashContent);
         View fullPageLoader = findViewById(R.id.fullScreenLoader);
+
         mainContent.setVisibility(View.INVISIBLE);
         fullPageLoader.setVisibility(View.VISIBLE);
 
-
         setupInsets(findViewById(R.id.main));
+
     }
 
     @Override
@@ -50,21 +40,7 @@ public class DashboardActivity extends BaseActivity {
         View fullPageLoader = findViewById(R.id.fullScreenLoader);
 
         DashboardUtils.fetchUserInfo(this, mainContent, fullPageLoader, user -> {
-            String firstPart = "Bonjour ";
-            String userName = user.getPrenom();
-            String fullText = firstPart + userName;
-
-            SpannableString spannableString = new SpannableString(fullText);
-
-            int nameStartIndex = firstPart.length();
-            int nameColor = ContextCompat.getColor(this, R.color.lightGreen);
-            ForegroundColorSpan nameColorSpan = new ForegroundColorSpan(nameColor);
-            spannableString.setSpan(nameColorSpan, nameStartIndex, fullText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-            TextView welcomingText = findViewById(R.id.welcomingTextField);
-            welcomingText.setText(spannableString);
+            //instruction
         });
     }
-
-
 }

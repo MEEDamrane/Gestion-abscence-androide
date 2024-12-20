@@ -52,4 +52,14 @@ public class MainApplication extends Application {
         this.token = apiToken;
         return this.token;
     }
+
+    public void dropToken(){
+        this.token = null;
+        this.user = null;
+
+        SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();  // Clears all stored data
+        editor.apply();
+    }
 }
