@@ -5,7 +5,8 @@
     <string name="loginPagePasswordLabel">Mot de passe</string>
     <string name="forgetPasswordButtonLabel">Mot de Passe oublier?</string>
     <string name="signInButtonText">Connexion</string>
-    <string name="loginFailedMessage">l\'email ou le mot de passe n\'est pas valide</string>
+    <string name="loginFailedMessage">Échec de connexion. Veuillez vérifier vos identifiants et réessayer</string>
+    <string name="loginFailedUnknownMessage">Impossible de se connecter. Veuillez réessayer plus tard.</string>
     <string name="navbar_home_label">page d\'accueil</string>
     <string name="navbar_sessions_label">séances</string>
     <string name="navbar_profile_label">profil</string>

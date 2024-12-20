@@ -78,7 +78,15 @@ public class LoginActivity extends AppCompatActivity {
                     handleSuccessfulConnection(loginResponse.getAccessToken());
                 } else {
                     Log.d("API_ERROR", "Login failed: " + response.code());
+
+                    if(response.code()!=401){
+                        errorText.setText(R.string.loginFailedUnknownMessage);
+                    }else{
+                        errorText.setText(R.string.loginFailedMessage);
+                    }
+
                     errorText.setVisibility(View.VISIBLE);
+
 
                     // Show loader
                     button.setEnabled(true); // Disable button
@@ -88,6 +96,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
+                errorText.setText(R.string.loginFailedUnknownMessage);
                 errorText.setVisibility(View.VISIBLE);
                 // Show loader
                 button.setEnabled(true); // Disable button
