@@ -1,4 +1,4 @@
-package com.example.qrabsence.TeacherActivities;
+package com.example.qrabsence.StudentActivities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,28 +14,18 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.qrabsence.BaseActivity;
 import com.example.qrabsence.MainApplication;
 import com.example.qrabsence.R;
-import com.example.qrabsence.StudentActivities.StudentDashActivity;
+import com.example.qrabsence.TeacherActivities.DashboardActivity;
 import com.example.qrabsence.Template.DashboardUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class SessionsActivity extends BaseActivity {
+public class StudentDashActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sessions);
+        setContentView(R.layout.activity_student_dash);
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-
-
-        setupInsets(findViewById(R.id.main));
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        MainApplication context = (MainApplication) getApplicationContext();
 
         View mainContent = findViewById(R.id.mainDashContent);
         View fullPageLoader = findViewById(R.id.fullScreenLoader);
@@ -43,18 +33,23 @@ public class SessionsActivity extends BaseActivity {
         mainContent.setVisibility(View.INVISIBLE);
         fullPageLoader.setVisibility(View.VISIBLE);
 
-        if(!context.getStoredIsEnseignant()){
-            startActivity(new Intent(this, StudentDashActivity.class));
-            finish();
-        }
+        setupInsets(findViewById(R.id.main));
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        MainApplication context = (MainApplication) getApplicationContext();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        DashboardUtils.setBottomNavBarLogic(bottomNavigationView,R.id.nav_sessions,this);
+        DashboardUtils.setBottomNavBarLogicStudent(bottomNavigationView,R.id.nav_home,this);
+
+        View mainContent = findViewById(R.id.mainDashContent);
+        View fullPageLoader = findViewById(R.id.fullScreenLoader);
 
         DashboardUtils.fetchUserInfo(this, mainContent, fullPageLoader, user -> {
-            //instruction
+            //
         });
     }
 }

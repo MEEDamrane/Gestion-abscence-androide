@@ -16,6 +16,12 @@
         android:theme="@style/Theme.QrAbsence"
         tools:targetApi="31">
         <activity
+            android:name=".StudentActivities.StudentProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".StudentActivities.StudentDashActivity"
+            android:exported="false" />
+        <activity
             android:name=".TeacherActivities.ProfileActivity"
             android:exported="false" />
         <activity

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TeacherActivities.DashboardActivity">
+    tools:context=".StudentActivities.StudentDashActivity">
 
     <!-- FrameLayout for Main Content -->
     <FrameLayout
@@ -29,17 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
-
-                <Button
-                    android:id="@+id/signOutButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/customButton"
-                    app:backgroundTint="@null"
-                    android:text="@string/disconnectButtonText"
-                    android:onClick="handleDisconnection"/>
-            </LinearLayout>
+                android:padding="16dp"/>
 
             <!-- Spacer to push Bottom Navigation to the bottom -->
             <View
@@ -53,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                app:menu="@menu/bottom_nav_menu"
+                app:menu="@menu/bottom_nav_menu_student"
                 app:itemRippleColor="@android:color/transparent"
                 app:itemIconTint="@color/bottom_nav_item_color"
                 app:itemTextColor="@color/bottom_nav_item_color" />
