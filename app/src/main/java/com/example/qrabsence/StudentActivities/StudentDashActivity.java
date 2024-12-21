@@ -1,12 +1,20 @@
 package com.example.qrabsence.StudentActivities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -49,7 +57,36 @@ public class StudentDashActivity extends BaseActivity {
         View fullPageLoader = findViewById(R.id.fullScreenLoader);
 
         DashboardUtils.fetchUserInfo(this, mainContent, fullPageLoader, user -> {
-            //
+            String firstPart = "Bonjour ";
+            String userName = user.getPrenom();
+            String fullText = firstPart + userName;
+
+            SpannableString spannableString = new SpannableString(fullText);
+
+            int nameStartIndex = firstPart.length();
+            int nameColor = ContextCompat.getColor(this, R.color.lightGreen);
+            ForegroundColorSpan nameColorSpan = new ForegroundColorSpan(nameColor);
+            spannableString.setSpan(nameColorSpan, nameStartIndex, fullText.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            TextView welcomingText = findViewById(R.id.welcomingTextField);
+            welcomingText.setText(spannableString);
         });
+    }
+
+    public void handleClick(View button){
+        Intent intent = new Intent(this, QRCodeScannerActivity.class);
+        startActivityForResult(intent,1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+            String result = data.getStringExtra("id");
+            Toast.makeText(this, "Result: " + result, Toast.LENGTH_SHORT).show();
+        } else if (resultCode == Activity.RESULT_CANCELED) {
+            Toast.makeText(this, "Failed To Scan QR", Toast.LENGTH_SHORT).show();
+        }
     }
 }

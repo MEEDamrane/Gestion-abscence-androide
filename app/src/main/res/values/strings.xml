@@ -11,4 +11,5 @@
     <string name="navbar_sessions_label">séances</string>
     <string name="navbar_profile_label">profil</string>
     <string name="disconnectButtonText">Se déconnecter</string>
+    <string name="scanQrButtonText">Scan QR Code</string>
 </resources>
