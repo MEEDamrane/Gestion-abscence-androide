@@ -19,12 +19,21 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.qrabsence.Api.APIClient;
+import com.example.qrabsence.Api.APIInterface;
 import com.example.qrabsence.BaseActivity;
+import com.example.qrabsence.DTO.LoginResponse;
+import com.example.qrabsence.DTO.SessionRegisterResponse;
 import com.example.qrabsence.MainApplication;
 import com.example.qrabsence.R;
 import com.example.qrabsence.TeacherActivities.DashboardActivity;
 import com.example.qrabsence.Template.DashboardUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class StudentDashActivity extends BaseActivity {
 
@@ -74,6 +83,11 @@ public class StudentDashActivity extends BaseActivity {
     }
 
     public void handleClick(View button){
+        View table = findViewById(R.id.displayTable);
+        TextView view = findViewById(R.id.resultText);
+        table.setVisibility(View.INVISIBLE);
+        view.setVisibility(View.INVISIBLE);
+
         Intent intent = new Intent(this, QRCodeScannerActivity.class);
         startActivityForResult(intent,1);
     }
@@ -84,9 +98,114 @@ public class StudentDashActivity extends BaseActivity {
 
         if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
             String result = data.getStringExtra("id");
-            Toast.makeText(this, "Result: " + result, Toast.LENGTH_SHORT).show();
+
+            try {
+                long value = Long.parseLong(result);
+
+                registerRequest(value);
+
+            } catch (NumberFormatException e) {
+
+                Toast.makeText(this, "Le code QR scanné est au mauvais format", Toast.LENGTH_SHORT).show();
+            }
+
+
         } else if (resultCode == Activity.RESULT_CANCELED) {
-            Toast.makeText(this, "Failed To Scan QR", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Impossible de scanner le QR", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void displayText(String text, int colorResourceId) {
+        TextView view = findViewById(R.id.resultText);
+        View progressBar = findViewById(R.id.progressBar);
+
+        // Resolve the color resource into a color value
+        int color = ContextCompat.getColor(this, colorResourceId);
+
+        view.setText(text);
+        view.setTextColor(color);
+        progressBar.setVisibility(View.GONE);
+        view.setVisibility(View.VISIBLE);
+    }
+
+    private void displayTable(SessionRegisterResponse response){
+        View table = findViewById(R.id.displayTable);
+
+        TextView nomEnsaignant = findViewById(R.id.nomEnsaignant);
+        TextView sessionIntitule = findViewById(R.id.sessionIntitule);
+        TextView sessionDate = findViewById(R.id.sessionDate);
+
+        table.setVisibility(View.VISIBLE);
+        nomEnsaignant.setText(response.getEnseignant());
+        sessionIntitule.setText(response.getIntitule());
+        sessionDate.setText(response.getDate());
+
+
+    }
+
+
+    private void registerRequest(Long id){
+        MainApplication appContext = (MainApplication) getApplicationContext();
+
+        String token = "Bearer " + appContext.getStoredToken();
+
+        APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
+
+        Call<SessionRegisterResponse> call = apiInterface.registerSession(token,id);
+
+        View progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
+
+        call.enqueue(new retrofit2.Callback<SessionRegisterResponse>() {
+
+            @Override
+            public void onResponse(Call<SessionRegisterResponse> call, Response<SessionRegisterResponse> response) {
+
+                if (response.isSuccessful() && response.body() != null) {
+
+                    SessionRegisterResponse sessionRegisterResponse = response.body();
+
+                    displayText(sessionRegisterResponse.getMessage(), R.color.green);
+                    displayTable(sessionRegisterResponse);
+
+                    Log.d("API_SUCCESS", "message: " + sessionRegisterResponse);
+                } else {
+                    Log.d("API_ERROR", "register failed: " + response.code());
+
+                    if (response.code() == 401) {
+                        appContext.dropToken();
+                        DashboardUtils.goToLogin(StudentDashActivity.this);
+                    } else {
+                        String errorMessage = "une erreur inattendue s'est produite, veuillez réessayer plus tard"; // Default message
+                        try {
+                            if (response.errorBody() != null) {
+                                // Convert the error body to a string
+                                String errorJson = response.errorBody().string();
+
+                                // Parse the error JSON to extract the "message" field
+                                JsonObject errorObject = new Gson().fromJson(errorJson, JsonObject.class);
+                                if (errorObject.has("message")) {
+                                    errorMessage = errorObject.get("message").getAsString();
+                                }
+                            }
+                        } catch (Exception e) {
+                            Log.e("API_ERROR", "Failed to parse error response", e);
+                        }
+
+                        displayText(errorMessage, R.color.error);
+                        Log.d("API_ERROR", "message: " + errorMessage);
+                    }
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<SessionRegisterResponse> call, Throwable t) {
+
+                displayText("une erreur inattendue s'est produite, veuillez réessayer plus tard",R.color.error);
+                Log.e("API_FAILURE", "Error: " + t.getMessage());
+            }
+        });
+
     }
 }
