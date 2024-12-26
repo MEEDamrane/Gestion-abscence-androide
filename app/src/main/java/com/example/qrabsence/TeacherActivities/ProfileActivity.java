@@ -56,6 +56,18 @@ public class ProfileActivity extends BaseActivity {
         DashboardUtils.setBottomNavBarLogic(bottomNavigationView,R.id.nav_profile,this);
 
         DashboardUtils.fetchUserInfo(this, mainContent, fullPageLoader, user -> {
+            DashboardUtils.fetchUserInfo(this, mainContent, fullPageLoader, user -> {
+                
+            TextView userName = findViewById(R.id.userName);
+            TextView userEmail = findViewById(R.id.userEmail);
+            TextView userCNE = findViewById(R.id.userCNE);
+            TextView userRole = findViewById(R.id.userRole);
+
+            userName.setText(user.getNom() + " " + user.getPrenom());
+            userEmail.setText(user.getEmail());
+            userCNE.setText(user.getCNE());
+            userRole.setText(user.getIs_enseignant() ? "Enseignant" : "Étudiant");
+            });
 
 
         });
