@@ -27,6 +27,32 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp">
+                <TextView
+                    android:id="@+id/userName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="Nom"
+                    android:textSize="16sp" /> <!-- Updated margin for spacing -->
+
+                <TextView
+                    android:id="@+id/userEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="Email"
+                    android:textSize="16sp" /> <!-- Updated margin for spacing -->
+
+                <TextView
+                    android:id="@+id/userCNE"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="CNE"
+                    android:textSize="16sp" />
 
                 <Button
                     android:id="@+id/signOutButton"
