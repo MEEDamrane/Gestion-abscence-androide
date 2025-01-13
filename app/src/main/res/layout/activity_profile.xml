@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:visibility="visible">>
+            android:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -30,41 +30,33 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <EditText
-                    android:id="@+id/editTextNom"
+                <TextView
+                    android:id="@+id/userName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
                     android:fontFamily="@font/inter_bold"
-                    android:hint="Nom"
+                    android:text="Nom"
                     android:textSize="16sp" /> <!-- Updated margin for spacing -->
 
-                <EditText
-                    android:id="@+id/editTextPrenom"
+                <TextView
+                    android:id="@+id/userEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
                     android:fontFamily="@font/inter_bold"
-                    android:hint="Prénom"
+                    android:text="Email"
                     android:textSize="16sp" /> <!-- Updated margin for spacing -->
 
-                <EditText
-                    android:id="@+id/editTextEmail"
+                <TextView
+                    android:id="@+id/userCNE"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
                     android:fontFamily="@font/inter_bold"
-                    android:hint="Email"
+                    android:text="CNE"
                     android:textSize="16sp" /> <!-- Updated margin for spacing -->
-
-                <EditText
-                    android:id="@+id/editTextCNE"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:fontFamily="@font/inter_bold"
-                    android:hint="CNE"
-                    android:textSize="16sp" /> <!-- Updated margin for spacing -->
+                <!-- Updated margin for spacing -->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -91,6 +83,10 @@
                 app:itemRippleColor="@android:color/transparent"
                 app:itemTextColor="@color/bottom_nav_item_color"
                 app:menu="@menu/bottom_nav_menu" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
         </LinearLayout>
 
         <!-- Spacer to push Bottom Navigation to the bottom -->

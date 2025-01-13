@@ -3,6 +3,7 @@ package com.example.qrabsence.StudentActivities;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -54,7 +55,13 @@ public class StudentProfileActivity extends BaseActivity {
         View fullPageLoader = findViewById(R.id.fullScreenLoader);
 
         DashboardUtils.fetchUserInfo(this, mainContent, fullPageLoader, user -> {
-            //instruction
+            TextView userName = findViewById(R.id.userName);
+            TextView userEmail = findViewById(R.id.userEmail);
+            TextView userCNE = findViewById(R.id.userCNE);
+
+            userName.setText(user.getNom() + " " + user.getPrenom());
+            userEmail.setText(user.getEmail());
+            userCNE.setText(user.getCNE()==null?"Not A Student":user.getCNE());
         });
     }
 
