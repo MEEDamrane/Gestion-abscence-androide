@@ -2,6 +2,7 @@ package com.example.qrabsence.Api;
 
 import com.example.qrabsence.DTO.LoginResponse;
 import com.example.qrabsence.DTO.User;
+import com.example.qrabsence.DTO.SessionsResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -28,5 +29,6 @@ public interface APIInterface {
     @GET("/api/auth/user")
     Call<User> getUserInfo(@Header("Authorization") String authorization);
 
-
+    @GET("api/session")
+    Call<SessionsResponse> getSessions(@Header("Authorization") String token, @Query("page") int page, @Query("search") String search);
 }

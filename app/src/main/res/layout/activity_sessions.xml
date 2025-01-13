@@ -6,9 +6,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TeacherActivities.DashboardActivity">
+    tools:context=".TeacherActivities.SessionsActivity">
 
-    <!-- FrameLayout for Main Content -->
     <FrameLayout
         android:id="@+id/frame_container"
         android:layout_width="match_parent"
@@ -16,7 +15,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <!-- Main Content with Bottom Navigation -->
         <LinearLayout
             android:id="@+id/mainDashContent"
             android:layout_width="match_parent"
@@ -24,27 +22,104 @@
             android:orientation="vertical"
             android:visibility="visible">
 
-            <!-- TextView -->
+            <!-- Header -->
+            <!-- Replace the TextView header with this -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:gravity="center_vertical">
 
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/search_background"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_marginEnd="16dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="12dp"
+                        android:src="@drawable/ic_search"/>
+
+                    <EditText
+                        android:id="@+id/searchEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint="Search sessions..."
+                        android:textSize="16sp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="12dp"
+                        android:inputType="text"
+                        android:imeOptions="actionSearch"/>
+                </LinearLayout>
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/addSessionButton"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sessions" />
+                    android:src="@drawable/ic_add"
+                    app:fabSize="normal"
+                    android:backgroundTint="@color/lightGreen"/>
             </LinearLayout>
 
-            <!-- Spacer to push Bottom Navigation to the bottom -->
-            <View
+            <!-- Main Content -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-            <!-- Bottom Navigation View -->
+                <!-- Sessions List -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/sessionsRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:clipToPadding="false"
+                    android:paddingHorizontal="8dp"/>
+
+                <!-- Pagination Controls -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:padding="16dp">
+
+                    <ImageButton
+                        android:id="@+id/prevPageButton"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/arrow_left"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:rotation="180"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/currentPageText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Page 1"
+                        android:textSize="16sp"
+                        android:layout_marginHorizontal="16dp"/>
+
+                    <ImageButton
+                        android:id="@+id/nextPageButton"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/arrow_right"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:visibility="gone"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Bottom Navigation -->
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottom_navigation"
                 android:layout_width="match_parent"
@@ -53,12 +128,13 @@
                 app:menu="@menu/bottom_nav_menu"
                 app:itemRippleColor="@android:color/transparent"
                 app:itemIconTint="@color/bottom_nav_item_color"
-                app:itemTextColor="@color/bottom_nav_item_color" />
+                app:itemTextColor="@color/bottom_nav_item_color"/>
+
         </LinearLayout>
 
-
     </FrameLayout>
-    <!-- Full-Screen Loader -->
+
+    <!-- Loading Indicator -->
     <ProgressBar
         android:id="@+id/fullScreenLoader"
         android:layout_width="wrap_content"
@@ -70,6 +146,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
