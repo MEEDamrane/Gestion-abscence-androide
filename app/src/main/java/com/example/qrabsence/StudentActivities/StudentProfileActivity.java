@@ -1,17 +1,21 @@
-package com.example.qrabsence.TeacherActivities;
+package com.example.qrabsence.StudentActivities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.example.qrabsence.Api.APIClient;
 import com.example.qrabsence.Api.APIInterface;
 import com.example.qrabsence.BaseActivity;
 import com.example.qrabsence.MainApplication;
 import com.example.qrabsence.R;
-import com.example.qrabsence.StudentActivities.StudentDashActivity;
 import com.example.qrabsence.Template.DashboardUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -19,24 +23,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProfileActivity extends BaseActivity {
+public class StudentProfileActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_student_profile);
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        setupInsets(findViewById(R.id.main));
-
-
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        MainApplication context = (MainApplication) getApplicationContext();
 
         View mainContent = findViewById(R.id.mainDashContent);
         View fullPageLoader = findViewById(R.id.fullScreenLoader);
@@ -44,32 +38,23 @@ public class ProfileActivity extends BaseActivity {
         mainContent.setVisibility(View.INVISIBLE);
         fullPageLoader.setVisibility(View.VISIBLE);
 
-        if(!context.getStoredIsEnseignant()){
-            startActivity(new Intent(this, StudentDashActivity.class));
-            finish();
-        }
+        setupInsets(findViewById(R.id.main));
+    }
 
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        MainApplication context = (MainApplication) getApplicationContext();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        DashboardUtils.setBottomNavBarLogic(bottomNavigationView,R.id.nav_profile,this);
+        DashboardUtils.setBottomNavBarLogicStudent(bottomNavigationView,R.id.nav_profile,this);
+
+        View mainContent = findViewById(R.id.mainDashContent);
+        View fullPageLoader = findViewById(R.id.fullScreenLoader);
 
         DashboardUtils.fetchUserInfo(this, mainContent, fullPageLoader, user -> {
-            DashboardUtils.fetchUserInfo(this, mainContent, fullPageLoader, user -> {
-                
-            TextView userName = findViewById(R.id.userName);
-            TextView userEmail = findViewById(R.id.userEmail);
-            TextView userCNE = findViewById(R.id.userCNE);
-            TextView userRole = findViewById(R.id.userRole);
-
-            userName.setText(user.getNom() + " " + user.getPrenom());
-            userEmail.setText(user.getEmail());
-            userCNE.setText(user.getCNE());
-            userRole.setText(user.getIs_enseignant() ? "Enseignant" : "Étudiant");
-            });
-
-
+            //instruction
         });
     }
 

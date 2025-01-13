@@ -18,7 +18,9 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.qrabsence.Api.APIInterface;
 import com.example.qrabsence.Api.APIClient;
 import com.example.qrabsence.DTO.LoginResponse;
+import com.example.qrabsence.StudentActivities.StudentDashActivity;
 import com.example.qrabsence.TeacherActivities.DashboardActivity;
+import com.example.qrabsence.Template.DashboardUtils;
 
 import retrofit2.Call;
 
@@ -34,14 +36,6 @@ public class LoginActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-    }
-
-    @Override
-    protected void onStart(){
-        super.onStart();
-
-        EditText emailOrCneInput = findViewById(R.id.EmailAddressInput);
-        EditText passwordInput = findViewById(R.id.PasswordInput);
     }
 
     public void handleConnection(View button){
@@ -69,10 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     LoginResponse loginResponse = response.body();
 
-                    errorText.setVisibility(View.GONE);
-                    // Show loader
-                    button.setEnabled(true); // Disable button
-                    signinLoader.setVisibility(View.GONE);
+
                     Log.d("API_SUCCESS", "Login successful: " + loginResponse.toString());
 
                     handleSuccessfulConnection(loginResponse.getAccessToken());
@@ -111,12 +102,23 @@ public class LoginActivity extends AppCompatActivity {
     private void handleSuccessfulConnection(String token){
         MainApplication context = (MainApplication) this.getApplicationContext();
 
-
         context.storeToken(token);
 
-        Intent intent = new Intent(this, DashboardActivity.class);
-        startActivity(intent);
+        DashboardUtils.fetchUserInfo(this,(user)->{
 
-        finish();
+            context.storeIsEnseignant(user.getIs_enseignant());
+
+            Intent intent;
+            if(user.getIs_enseignant()){
+                intent = new Intent(this, DashboardActivity.class);
+            }else{
+                intent = new Intent(this, StudentDashActivity.class);
+            }
+            startActivity(intent);
+            finish();
+        });
+
+
+
     }
 }

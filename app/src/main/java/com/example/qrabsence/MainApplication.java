@@ -11,6 +11,7 @@ import com.example.qrabsence.DTO.User;
 public class MainApplication extends Application {
     public User user = null;
     private String token;
+    public boolean isEnseignant;
 
     @Override
     public void onCreate(){
@@ -56,10 +57,36 @@ public class MainApplication extends Application {
     public void dropToken(){
         this.token = null;
         this.user = null;
+        this.isEnseignant = false;
 
         SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();  // Clears all stored data
         editor.apply();
+    }
+
+    public void storeIsEnseignant(boolean isEnseignant) {
+        this.isEnseignant = isEnseignant;
+
+        SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("is_enseignant", isEnseignant);
+        editor.apply();
+
+        Log.i(TAG, "isEnseignant stored successfully: " + isEnseignant);
+    }
+
+    public boolean getStoredIsEnseignant() {
+        if (this.isEnseignant) {
+            return this.isEnseignant;
+        }
+
+        SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
+        boolean storedIsEnseignant = sharedPreferences.getBoolean("is_enseignant", false);
+
+        this.isEnseignant = storedIsEnseignant;
+        Log.i(TAG, "Stored isEnseignant Retrieved: " + storedIsEnseignant);
+
+        return storedIsEnseignant;
     }
 }

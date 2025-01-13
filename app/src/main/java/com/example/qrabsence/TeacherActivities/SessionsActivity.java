@@ -1,5 +1,6 @@
 package com.example.qrabsence.TeacherActivities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ import com.example.qrabsence.DTO.Session;
 import com.example.qrabsence.DTO.SessionsResponse;
 import com.example.qrabsence.MainApplication;
 import com.example.qrabsence.R;
+import com.example.qrabsence.StudentActivities.StudentDashActivity;
 import com.example.qrabsence.Template.DashboardUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -50,6 +52,7 @@ public class SessionsActivity extends BaseActivity {
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
+<<<<<<< HEAD
         // Initialize UI elements
         initializeViews();
         setupListeners();
@@ -59,6 +62,8 @@ public class SessionsActivity extends BaseActivity {
         View fullPageLoader = findViewById(R.id.fullScreenLoader);
         mainContent.setVisibility(View.INVISIBLE);
         fullPageLoader.setVisibility(View.VISIBLE);
+=======
+>>>>>>> 5c1da2348ad6239e9665e102f60cda56b2ba1a7b
 
         setupInsets(findViewById(R.id.main));
     }
@@ -152,11 +157,20 @@ public class SessionsActivity extends BaseActivity {
         super.onStart();
         MainApplication context = (MainApplication) getApplicationContext();
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        DashboardUtils.setBottomNavBarLogic(bottomNavigationView, R.id.nav_sessions, this);
-
         View mainContent = findViewById(R.id.mainDashContent);
         View fullPageLoader = findViewById(R.id.fullScreenLoader);
+
+        mainContent.setVisibility(View.INVISIBLE);
+        fullPageLoader.setVisibility(View.VISIBLE);
+
+        if(!context.getStoredIsEnseignant()){
+            startActivity(new Intent(this, StudentDashActivity.class));
+            finish();
+        }
+
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        DashboardUtils.setBottomNavBarLogic(bottomNavigationView, R.id.nav_sessions, this);
 
         DashboardUtils.fetchUserInfo(this, mainContent, fullPageLoader, user -> {
             fetchSessions();
