@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Champ pour l'intitulé -->
+    <EditText
+        android:id="@+id/etIntitule"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Intitulé"
+        android:inputType="text" />
+
+    <!-- Champ pour la date -->
+    <EditText
+        android:id="@+id/etDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Date (YYYY-MM-DD)"
+        android:inputType="date" />
+
+    <!-- Bouton pour ajouter la session -->
+    <Button
+        android:id="@+id/btnAddSession"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ajouter une session"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>
